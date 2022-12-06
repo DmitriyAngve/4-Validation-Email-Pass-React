@@ -10,6 +10,16 @@ const Login = (props) => {
   const [enteredPassword, setEnteredPassword] = useState("");
   const [passwordIsValid, setPasswordIsValid] = useState();
   const [formIsValid, setFormIsValid] = useState(false);
+  /*
+  // useEffect without second argument - This function runs after every component render cycle. Not before it and not during it, AFTER. Including the first time this component was mounted
+  // This behavior changes after we add dependencies - now this function only executes for the first time this component was mounted and rendered but not thereafter, not for any subsequent rerender cycle
+  useEffect(() => {
+    console.log("EFFECT RUNNING");
+
+    return () => {
+      console.log("EFFECT CLEANUP");
+    };
+  }, [enteredPassword]);
 
   // useEffect here to handle side effects, lister to every keystroke and save that entered data and we then wanna trigger another action in response to that. Checking and updating that form validity. in reponse to a keystroke in the email or password field, that is also something you could call a side effect. Is a side effect of the user entering data
   useEffect(() => {
@@ -29,17 +39,26 @@ const Login = (props) => {
     };
   }, [enteredEmail, enteredPassword]); // add dependencies. what we using in your side effect function (useEffect())
   // This tells React that after every login component function execution it will rerun this useEffect function but only if either  or enteredEmail or enteredPassword. If neither of two changed, this effect function will NOT rerun.
-
+*/
   const emailChangeHandler = (event) => {
     setEnteredEmail(event.target.value);
+
+    // Here we updating some state the Form validity based on two other states
+    setFormIsValid(
+      event.target.value.includes("@") && enteredPassword.trim().length > 6
+    );
   };
 
   const passwordChangeHandler = (event) => {
     setEnteredPassword(event.target.value);
 
-    // setFormIsValid(
-    //   event.target.value.trim().length > 6 && enteredEmail.includes("@")
-    // );
+    setFormIsValid(
+      enteredEmail.includes("@") && event.target.value.trim().length > 6
+    );
+
+    setFormIsValid(
+      event.target.value.trim().length > 6 && enteredEmail.includes("@")
+    );
   };
 
   const validateEmailHandler = () => {
