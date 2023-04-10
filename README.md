@@ -1,4 +1,4 @@
-# 4 - Side-Effects--Reducers--Context
+# 4 - Validation-Email-Pass-React
 
 This is a simple dummy app where you can enter any credentials you choose. In this app, I learned how validation works. I practice working with the useEffect hook and side effects.
 
